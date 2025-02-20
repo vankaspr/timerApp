@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QTimeEdit
 from PyQt5.QtGui import QIcon, QFont
@@ -7,23 +8,31 @@ from PyQt5.QtMultimedia import QSound
 
 
 class MainWindow(QMainWindow):
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("my_timer_app")
         self.setGeometry(0, 0, 350, 250)
         self.setFixedSize(350, 250)
-        self.setWindowIcon(QIcon('title_pic.jpg'))
+        title_pic = os.path.join(MainWindow.current_dir, 'title_pic.jpg')
+        self.setWindowIcon(QIcon(title_pic))
         self.setStyleSheet('background-color: rgb(234, 160, 153);')
 
         # center widget
         self.centralwidget = QtWidgets.QWidget(self)
         self.setCentralWidget(self.centralwidget)
 
+        # Формируем полный путь к звуковым файлам
+        button_sound_path = os.path.join(MainWindow.current_dir, 'click_2.wav')
+        break_sound_path = os.path.join(MainWindow.current_dir, 'break_sound.wav')
+        end_timer_sound_path = os.path.join(MainWindow.current_dir, 'end2_sound.wav')
+
         # sounds
-        self.button_sound = QSound('click_2.wav')
-        self.break_sound = QSound('break_sound.wav')
-        self.end_timer_sound = QSound('end2_sound.wav')
+        self.button_sound = QSound(button_sound_path)
+        self.break_sound = QSound(break_sound_path)
+        self.end_timer_sound = QSound(end_timer_sound_path)
 
         # go button
         self.goButton = QPushButton('go', self.centralwidget)
@@ -105,7 +114,8 @@ class MainWindow(QMainWindow):
         self.gif_label = QLabel(self.verticalFrame_2)
         self.gif_label.setGeometry(0,0, self.verticalFrame_2.width(), self.verticalFrame_2.height())
 
-        self.gif_movie = QtGui.QMovie("gifend_2.gif")
+        gif = os.path.join(MainWindow.current_dir, 'break_gif.gif')
+        self.gif_movie = QtGui.QMovie(gif)
         self.gif_label.setMovie(self.gif_movie)
 
         self.verticalFrame_2.hide()
