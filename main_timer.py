@@ -15,7 +15,6 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("my_timer_app")
         self.setGeometry(0, 0, 350, 250)
-        self.setFixedSize(350, 250)
         title_pic = os.path.join(MainWindow.current_dir, 'title_pic.jpg')
         self.setWindowIcon(QIcon(title_pic))
         self.setStyleSheet('background-color: rgb(234, 160, 153);')
